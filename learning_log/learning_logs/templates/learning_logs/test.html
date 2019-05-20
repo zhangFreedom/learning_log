@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>Shopping Cart</title>
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.min.js' %}"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="{% static 'js/etao.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+	<link href="{% static 'css/cart.css' %}" media="screen" rel="stylesheet" type="text/css" />
+	<link href="{% static 'css/bootstrap.min.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" language="javascript">
+    <!--下面两处的函数处原为update-->
+           function shop(id) {
+               $.getJSON("/data/" + id + "/",function(data) {
+                $.each(data, function(){
+
+					if (this.type != '' && this.sa == 0){
+
+
+					var txt1='<td colspan="2" class="goods"><label><input type="checkbox" class="check-one check"  />'+this.type+'</label ></td>';
+					var txt2='<td class="text-center">'+this.comment+'</td>';
+					var txt3='<td class="selling-price number small-bold-red text-right" style="padding-top: 1.1rem;" data-bind='+this.price+'>'+this.price+'</td>';
+					var txt4='<div class="input-group input-group-sm">'+'<span class="input-group-addon minus">-</span>'+'<input ype="text" class="number form-control input-sm" value='+ this.amount+' >'+'<span class="input-group-addon plus">+</span></div>';
+					var txt8='<td>'+txt4+'</td>';
+
+					var txt9='<td class="subtotal number small-bold-red text-right" style="padding-top: 1.1rem;"></td>';
+
+					var txt10='<td class="action" style="padding-top: 1.1rem;"><span class="delete btn btn-xs btn-warning">删除</span></td>';
+
+
+					var txt11='<tr id=con'+id+'>'+txt1+txt2+txt3+txt8+txt9+txt10+'</tr>';
+					$("#content").append(txt11);
+					$("#content").addClass("delete");
+					}
+
+					else if(this.type != '' && this.sa ==1){
+					var txt1='<td colspan="2" class="goods"><label><input type="checkbox" class="check-one check"  />'+this.type+'</label ></td>';
+					var txt2='<td class="text-center">'+this.comment+'</td>';
+					var txt3='<td class="selling-price number small-bold-red text-right" style="padding-top: 1.1rem;" data-bind='+this.price+'>'+this.price+'</td>';
+					var txt4='<div class="input-group input-group-sm">'+'<span class="input-group-addon minus">-</span>'+'<input ype="text" class="number form-control input-sm" value='+ this.amount+' >'+'<span class="input-group-addon plus">+</span></div>';
+					var txt8='<td>'+txt4+'</td>';
+
+					var txt9='<td class="subtotal number small-bold-red text-right" style="padding-top: 1.1rem;"></td>';
+
+					var txt10='<td class="action" style="padding-top: 1.1rem;"><span class="delete btn btn-xs btn-warning">删除</span></td>';
+
+					var txt11=txt1+txt2+txt3+txt8+txt9+txt10;
+
+
+					document.getElementById("con"+this.ind).innerHTML=txt11;
+					<!--$("#content").append(txt11);-->
+					<!--$("#content").addClass("delete");-->
+
+					}
+
+
+                });
+               });
+
+
+           }
+           function timeDown(limit, i) {
+               limit--;
+                if (limit < 0) {
+                   limit = 3;
+
+
+                   <!--t=i+1;-->
+
+                   shop(i);
+                   i++;
+
+               }
+
+
+
+               $('#time').text(limit + '秒后刷新');
+               setTimeout(function() {
+                   timeDown(limit, i);
+               }, 1000)
+           }
+
+           $(document).ready(function() {
+               timeDown(3, 0)
+        });
+
+   </script>
+
+</head>
+
+<body class="container">
+	<div class="row hidden-print">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="<%=application.getContextPath()%>">首页</a></li>
+                <li class="active">查看购物车</li>
+			</ol>
+		</div>
+	</div>
+    <div class="cart-wrap">
+		<table id="cartTable" class="cart table table-condensed">
+			<thead >
+				<tr >
+					<td class="t-checkbox "><label><input class="check-all check" type="checkbox"/>全选</label></td>
+					<th class="t-goods text-center"><label>产品型号</label></th>
+					<th class="text-center">产品备注</th>
+					<th class="t-selling-price text-center"><label>销售单价</label></th>
+					<th class="t-qty text-center"><label>采购数量</label></th>
+					<th class="t-subtotal text-center"><label>金额小计</label></th>
+					<th class="t-action"><label>操作</label></th>
+				</tr>
+			</thead>
+
+
+			<tbody id="content">
+			<!--从此处开始显示第一
+			个商品信息-->
+				<!--<tr >-->
+
+
+				<!--</tr>-->
+
+
+
+
+			</tbody>
+		</table>
+
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12">
+				<div class="cart-summary">
+					<div style="margin-left: 2rem;" class="pull-right">
+						<a href="{% url 'learning_logs:shou_yin' %}"
+							id="btn_settlement" type="button" class="btn btn-primary" >去结算</a>
+					</div>
+					<div style="margin-left: 1rem; margin-top: 0.4rem;" class="pull-right total">
+						<label>金额合计:<span id="priceTotal" class="price-total large-bold-red">0.00</span></label>
+					</div>
+					<div style="margin-top: 4px;" class="pull-right">
+						<label>您选择了<span id="itemCount" class="large-bold-red" style="margin: 0 4px;"></span>种产品型号，共计<span id="qtyCount" class="large-bold-red" style="margin: 0 4px;"></span>件
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+
+<!--<div id =result></div>-->
+<!--<div id =result2></div>-->
+
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function(){-->
+        <!--function refresh(){-->
+            <!--$.getJSON("/data_fresh/", function (ret) {-->
+                <!--$('#result').html('<p>'+ret.data1+'</p>');-->
+                <!--$('#result2').html(ret.data2);-->
+            <!--})-->
+        <!--}-->
+        <!--setInterval(refresh, 2000)-->
+    <!--})-->
+<!--</script>-->

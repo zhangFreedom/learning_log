@@ -1,0 +1,30 @@
+﻿{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+<!-- 该模板用于新建主题（topic），但是需要完善主题相关图片的上传-->
+{% block header %}
+
+  <h2>Add a new topic:</h2>
+
+{% endblock header %}
+
+
+{% block content %}
+
+<!-- 当有主题提交的时候，跳转到视图函数new_topic，进行处理 -->
+  <form class="form" action="{% url 'learning_logs:new_topic' %}" method="post">
+
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+
+
+    {% buttons %}
+
+      <button class="btn btn-primary" name="submit">add topic</button>
+
+    {% endbuttons %}
+
+  </form>
+
+
+{% endblock content %}

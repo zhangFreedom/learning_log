@@ -1,0 +1,40 @@
+
+                    $("#content").html('<label> <input type="checkbox" class="check-one check"  />'+this.type+'</label >');
+                    $("#con").html(this.comment);
+                    $("#co").html('<td class="selling-price number small-bold-red text-right" style="padding-top: 1.1rem;" data-bind=799>'+this.price+'</td>');
+                    $("#c").html('<input type="text" class="number form-control input-sm" value= '+this.amount+'>');
+
+
+
+
+                    <td colspan="2" class="goods"><label id ="content"></label></td>
+					<td class="text-center" ><label id ="con"></label></td>
+                    <td id="co"></td>
+					<td >
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon minus">-</span> <p id="c"></p>
+							<span class="input-group-addon plus">+</span>
+						</div>
+					</td>
+					<td class="subtotal number small-bold-red text-right" style="padding-top: 1.1rem;"></td>
+					<td class="action" style="padding-top: 1.1rem;"><span class="delete btn btn-xs btn-warning">删除</span></td>
+
+
+
+					var txt4
+					var txt5
+					var txt6
+					+txt4+txt5+txt6+
+
+                    var txt1='<td colspan="2" class="goods"><label><input type="checkbox" class="check-one check"  />'+this.type+'</label ></td>';
+					var txt2='<td class="text-center">'+this.comment+'</td>';
+										var txt3='<td class="selling-price number small-bold-red text-right" style="padding-top: 1.1rem;" data-bind='+this.price+'>'+this.price+'</td>'
+                    var txt4='<td>
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon minus">-</span><input
+										type="text" class="number form-control input-sm" value='+ this.amount+' >
+							<span class="input-group-addon plus">+</span>
+						</div>
+					</td>'
+					var txt5='<td class="subtotal number small-bold-red text-right" style="padding-top: 1.1rem;"></td>'
+					var txt6='<td class="action" style="padding-top: 1.1rem;"><span class="delete btn btn-xs btn-warning">删除</span></td>'

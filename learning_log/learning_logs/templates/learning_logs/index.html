@@ -1,0 +1,16 @@
+﻿{% extends "learning_logs/base.html" %}
+<!-- 所谓的网站起始页，俗称导航页 -->
+{% block header %}
+  <div class="jumbotron">
+    <h2>Hello，欢迎使用超市收银系统！</h2>
+  </div>
+{% endblock header %}
+
+{% block content %}
+  <h3>
+    <a href="{% url 'users:register' %}">Register an account </a>
+  </h3>
+  <h3>
+
+  </h3>
+{% endblock content %}

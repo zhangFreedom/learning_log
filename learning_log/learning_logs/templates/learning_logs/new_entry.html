@@ -1,0 +1,18 @@
+{% extends "learning_logs/base.html" %}
+{% block content %}
+<!-- 仅仅新建条目：提交文本和图片的时候跳转此页面-->  
+ <p>
+  <a href="{%url 'learning_logs:topic' topic.id%}">{{ topic }}</a>
+  </p>
+  <p>Add a new entry:</p>
+<!-- 当有图片和条目提交时候，跳转到到视图函数new_entry进行处理 -->
+  <form action="{%url 'learning_logs:new_entry' topic.id%}" method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <input type="file" name="img">
+  <button name="submit">add entry</button>
+
+<!-- {% csrf_token %}用来防止跨站请求伪造，form.as_p以段落的格式创建所有表格元素。 -->
+
+</form>
+{% endblock content %}

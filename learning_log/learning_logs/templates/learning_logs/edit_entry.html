@@ -1,0 +1,20 @@
+﻿{% extends "learning_logs/base.html" %}
+{% block content %}
+<!-- 对上传的条目进行更改， -->
+<p>
+  <a href="{%url 'learning_logs:topic' topic.id%}">{{ topic }}</a>
+</p>
+
+
+
+<p>Edit entry:</p>
+<!-- 跳转到视图函数edit_entry进行重新保存处理 -->
+<form action="{%url 'learning_logs:edit_entry' entry.id%}" method='post' enctype="multipart/form-data">
+
+  {%csrf_token%}
+  {{ form.as_p}}
+  <input type="file" name="img">
+  <button name="submit">save changes</button>
+
+</form>
+{% endblock content %}

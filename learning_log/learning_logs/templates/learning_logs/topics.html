@@ -1,0 +1,44 @@
+﻿{% extends "learning_logs/base.html" %}
+{% load staticfiles %}
+<!-- 此页面仅仅用于各主题的显示，及其主题关联的本地静态图片的加载-->
+{% block header %}
+
+  <h1>Topics</h1>
+
+{% endblock header %}
+
+
+{% block content %}
+
+
+  <ul>
+
+    {% for topic in  topics %}
+
+      <li>
+
+        <h3>
+
+          <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+
+        </h3>
+		
+		
+
+		<img  src="/static/images/{{ topic }}.jpg" alt="subject picture" width="320" height="240"/> 
+		
+		
+      </li>
+
+    {% empty %}
+
+      <li>No topics have been added yet.</li>
+
+    {% endfor %}
+
+  </ul>
+
+  <h3><a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a></h3>
+
+
+{% endblock content %}

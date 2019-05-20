@@ -1,0 +1,69 @@
+﻿{% extends "learning_logs/base.html" %}
+<!-- 此页面用于各主题对应的条目加载，包括条目涉及的图片加载，图片加载需修改-->
+{% block header %}<!-- 此写法实现功能类的，标签 -->
+
+  <h2>{{ topic }}</h2>
+
+{% endblock header %}
+
+
+{% block content %}
+
+  <p>
+
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">add new entry</a>
+	<li>you can insert your picture after your entry .</li>
+  </p>
+
+
+  {% for entry in entries %}
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+
+        <h3>
+
+          {{ entry.date_added|date:"M d, Y H:i" }}
+
+<!-- 当前用户为主题的创建者，则进行给予条目更改特权 -->
+          {% if topic.owner == request.user%}
+          <small>
+
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}"> edit entry</a>
+
+          </small>
+          {% endif %}
+        </h3>
+
+      </div>
+
+      <div class="panel-body">
+
+        {{ entry.text|linebreaks }}
+		{% for img in imgs %}
+		
+		{% if entry.date_added|date:"M d, Y H:i" == img.date_added|date:"M d, Y H:i"%}
+			<img src="/static/{{ img.img.url }}" alt="subject picture" width="500" height="270"><br/>
+		{% endif %}	
+		
+		{% endfor %}
+		
+      </div>
+
+
+
+    </div> <!-- panel -->
+
+  {% empty %}
+
+    <li>
+
+      There are no entries for this topic yet.
+
+    </li>
+
+  {% endfor %}
+
+
+{% endblock content %}
